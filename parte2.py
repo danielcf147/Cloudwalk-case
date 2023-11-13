@@ -216,7 +216,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def calculate_anomalies_limits(df, column, multiplier=2):
+def calculate_anomalies_limits(df, column, multiplier=1.5):
     mean_value = df[column].mean()
     std_dev = df[column].std()
     upper_limit = mean_value + multiplier * std_dev
@@ -264,7 +264,7 @@ def calculate_and_plot_anomalies(df, status_column, value_column, multiplier=2):
     )
     plt.axhline(y=upper_limit, color="r", linestyle="--", label="Limite Superior")
     plt.axhline(y=lower_limit, color="r", linestyle="--", label="Limite Inferior")
-    plt.xticks(range(0, 24))  # Defina os ticks do eixo X para 1-24
+    plt.xticks(range(0, 24))  # Definindo os ticks do eixo X para 0-23
     plt.xlabel("Hora")
     plt.ylabel(value_column)
     plt.title(
@@ -281,11 +281,11 @@ def main():
     df1 = pd.read_csv(transactions1)
     df2 = pd.read_csv(transactions2)
 
-    # Se a coluna 'time' estiver no formato "00h 00", ajuste o formato
+    # Se a coluna 'time' estiver no formato "00h 00", ajusta o formato
     df1["time"] = pd.to_datetime(df1["time"], format="%Hh %M", errors="coerce")
     df2["time"] = pd.to_datetime(df1["time"], format="%Hh %M", errors="coerce")
 
-    # Certifique-se de que a coluna 'time' está correta
+    # Certificando que a coluna 'time' está correta
     if "time" not in df1.columns:
         raise ValueError(
             "O DataFrame não possui uma coluna chamada 'time'. Verifique o formato do seu arquivo CSV."
@@ -295,7 +295,7 @@ def main():
             "O DataFrame não possui uma coluna chamada 'time'. Verifique o formato do seu arquivo CSV."
         )
 
-    # Crie uma coluna 'hour' para representar a hora
+    # Criando uma coluna 'hour' para representar a hora
     df1["hour"] = df1["time"].dt.hour
     df2["hour"] = df2["time"].dt.hour
 
