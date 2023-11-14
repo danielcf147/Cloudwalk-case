@@ -1,32 +1,12 @@
-# from email.message import EmailMessage
-# import smtplib
-
-
-# def email_alert(subject, body, to):
-#     msg = EmailMessage()
-#     msg.set_content(body)
-#     msg["subject"] = subject
-#     msg["to"] = to
-#     msg["from"] = "danielcf147@gmail.com"
-#     user = "danielcf147@gmail.com"
-#     password = "outk obyw ftix tnjx "
-
-#     server = smtplib.SMTP("smtp.gmail.com", 587)
-#     server.starttls()
-#     server.login(user, password)
-#     server.send_message(msg)
-
-#     server.quit()
-
-
-# if __name__ == "__main__":
-#     email_alert("teste1", "ta funcionando", "danielcf147@gmail.com")
-
 from email.message import EmailMessage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from email.mime.image import MIMEImage
 import smtplib
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def email_alert(subject, body, to, image_paths=None):
@@ -48,8 +28,8 @@ def email_alert(subject, body, to, image_paths=None):
                 msg.attach(image)
 
     # Send the email
-    user = "danielcf147@gmail.com"
-    password = "outk obyw ftix tnjx"  # Replace with your email password
+    user = os.getenv("USER")
+    password = os.getenv("PASSWORD")  # Replace with your email password
 
     with smtplib.SMTP("smtp.gmail.com", 587) as server:
         server.starttls()
@@ -63,5 +43,5 @@ if __name__ == "__main__":
         "Test with Image",
         "Here is an image attachment.",
         "recipient@example.com",
-        image_paths=["reversed_f0__plot.png"],
+        image_paths=["imagePath.png"],
     )
