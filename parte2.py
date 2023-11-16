@@ -13,7 +13,7 @@ def calculate_anomalies_limits(df, column, multiplier=1.5):
     return anomalies, upper_limit, lower_limit
 
 
-def plot_anomalies_limits(df, column, multiplier=2):
+def plot_anomalies_limits(df, column, multiplier=1.5):
     anomalies, upper_limit, lower_limit = calculate_anomalies_limits(
         df, column, multiplier
     )
@@ -31,7 +31,7 @@ def plot_anomalies_limits(df, column, multiplier=2):
     plt.show()
 
 
-def calculate_and_plot_anomalies(df, status_column, value_column, multiplier=2):
+def calculate_and_plot_anomalies(df, status_column, value_column, multiplier=1.5):
     status_df = df[df["status"] == status_column]
     anomalies, upper_limit, lower_limit = calculate_anomalies_limits(
         status_df, value_column, multiplier
@@ -63,7 +63,7 @@ def calculate_and_plot_anomalies(df, status_column, value_column, multiplier=2):
     return anomalies
 
 
-def save_plot_to_image(df, status_column, value_column, multiplier=2):
+def save_plot_to_image(df, status_column, value_column, multiplier=1.5):
     anomalies, upper_limit, lower_limit = calculate_anomalies_limits(
         df, value_column, multiplier
     )
