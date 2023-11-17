@@ -16,10 +16,15 @@ def preprocess_data(df):
 
 
 def detect_anomalies(df, column="difference", multiplier=1.5):
+    print(df["difference"])
     mean_value = df[column].mean()
+    print(mean_value)
     std_dev = df[column].std()
+    print(std_dev)
     upper_limit = mean_value + multiplier * std_dev
+    print(upper_limit)
     lower_limit = mean_value - multiplier * std_dev
+    print(lower_limit)
     anomalies = df[(df[column] > upper_limit) | (df[column] < lower_limit)]
     return anomalies, upper_limit, lower_limit
 
